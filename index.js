@@ -45,7 +45,8 @@ class GitbookPrinter {
     async _downloadChapterList() {
 
         /* Open browser. */
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({args: ['--disable-dev-shm-usage', '--disable-gpu']});
+
 
         const page = await browser.newPage();
 
