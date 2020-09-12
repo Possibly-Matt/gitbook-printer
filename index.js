@@ -45,7 +45,20 @@ class GitbookPrinter {
     async _downloadChapterList() {
 
         /* Open browser. */
-        const browser = await puppeteer.launch({args: ['--disable-dev-shm-usage', '--disable-gpu']});
+        /* I'm not sure how helpful these changes are in the long run, but personally it seems to work (for now)... */
+        /* https://github.com/puppeteer/puppeteer/issues/3709#issuecomment-452188987 */
+        const browser = await puppeteer.launch(
+        {
+        ignoreHTTPSErrors: true,
+        args :[
+        '--ignore-certificate-errors',
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--lang=ja,en-US;q=0.9,en;q=0.8',
+        '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+        ]
+        });
 
 
         const page = await browser.newPage();
