@@ -45,8 +45,6 @@ class GitbookPrinter {
     async _downloadChapterList() {
 
         /* Open browser. */
-        /* I'm not sure how helpful these changes are in the long run, but personally it seems to work (for now)... */
-        /* https://github.com/puppeteer/puppeteer/issues/3709#issuecomment-452188987 */
         const browser = await puppeteer.launch(
         {
         ignoreHTTPSErrors: true,
@@ -60,9 +58,9 @@ class GitbookPrinter {
         ]
         });
 
-
         const page = await browser.newPage();
-
+        await page.setDefaultNavigationTimeout(0); 
+        
         /* Get chapters list from summary. */
         const chapterPathList = await this._getChapterPathList();
 
